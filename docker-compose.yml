@@ -14,8 +14,13 @@ services:
     environment:
       - PRODUCER_PORT=3000
       - CONSUMER_PORT=3001
+      - CLIENT_PORT=5672
+      - USER=user
+      - PASSWORD=user
     depends_on:
       - rabbitmq
+    networks:
+      - rabbitmq_go_net
 
   rabbitmq:   
     image: rabbitmq:3-management-alpine
