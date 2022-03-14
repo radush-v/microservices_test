@@ -1,6 +1,7 @@
-import { response } from 'express';
 import request from 'supertest';
-import { producer } from '../index'
+import { producer } from '../index';
+
+jest.mock('./produce');
 
 describe('POST /send', () => {
     describe('Consists fileUrl', () => {
@@ -10,16 +11,16 @@ describe('POST /send', () => {
                     "fileUrl": "someUrl"
                 }
             )
+            expect(response.statusCode).toBe(200);
         })
-        expect(response.statusCode).toBe(200);
     })
 
-    // describe("Doesn't consist url", () => {
-    //     test('Return 400', async () => {
-    //         const response = await request(producer).post('/send').send()
-    //     })
-    //     expect(response.statusCode).toBe(400);
-    // })
+    describe("Doesn't consist url", () => {
+        test('Return 400', async () => {
+            const response = await request(producer).post('/send').send({})
+            expect(response.statusCode).toBe(400);
+        })
+    })
 
 })
 
