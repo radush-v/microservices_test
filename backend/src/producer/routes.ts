@@ -4,13 +4,11 @@ import { sendRabbitMq } from './produce';
 const router = express.Router();
 
 router.post('/send', (req, res) => {
-    try {
+    if (req.body.fileUrl) {
         sendRabbitMq(req.body);
-        res.send('Ok');
+        res.sendStatus(200);
     }
-    catch (err) {
-        res.send(err);
-    }
+    res.sendStatus(400);
 })
 
 export { router };
