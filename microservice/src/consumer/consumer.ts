@@ -1,14 +1,11 @@
-import express from 'express';
+
 import amqp from 'amqplib';
 
 import { link, queueName } from '../shared/rabbitCredentials'
 import { download } from './download';
 import { recognizeText } from './getText';
 
-const consumer = express();
-
 const consumeRabbitMq = async (): Promise<void> => {
-
     try {
         const conn = await amqp.connect(link);
         const channel = await conn.createChannel();
@@ -27,8 +24,8 @@ const consumeRabbitMq = async (): Promise<void> => {
         })
     }
     catch (err) {
-        console.log(err);
+        consumeRabbitMq();
     }
 }
 
-export { consumer, consumeRabbitMq };
+export { consumeRabbitMq };

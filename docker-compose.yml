@@ -10,9 +10,26 @@ services:
       - ./backend:/app/backend/src
     ports:
       - 3000:3000
-      - 3001:3001
     environment:
       - PRODUCER_PORT=3000
+      - CLIENT_PORT=5672
+      - USER=user
+      - PASSWORD=user
+    depends_on:
+      - rabbitmq
+    networks:
+      - rabbitmq_go_net
+
+  microservice:
+    build: ./microservice 
+    container_name: 'microservice'
+    command: npm run start:dev
+    restart: always
+    volumes:
+      - ./microservice:/app/microservice/src
+    ports:
+      - 3001:3001
+    environment:
       - CONSUMER_PORT=3001
       - CLIENT_PORT=5672
       - USER=user
