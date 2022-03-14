@@ -5,12 +5,7 @@ import { router } from './producer/routes';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-
-consumer.listen(process.env.CONSUMER_PORT, () => {
-    consumeRabbitMq();
-    console.log('Consumer is running...');
-})
-
+/* Producer server*/
 const producer =  express();
 
 producer.use(bodyParser.json());
@@ -19,4 +14,9 @@ producer.use(router);
 
 producer.listen(process.env.PRODUCER_PORT, () => {
     console.log('Producer is running...')
+})
+
+consumer.listen(process.env.CONSUMER_PORT, () => {
+    console.log('Consumer is running...');
+    consumeRabbitMq();
 })

@@ -2,6 +2,8 @@ import express from 'express';
 import amqp from 'amqplib';
 
 import { link, queueName } from '../shared/rabbitCredentials'
+import { download } from './download';
+import { recognizeText } from './getText';
 
 const consumer = express();
 
@@ -14,10 +16,13 @@ const consumeRabbitMq = async (): Promise<void> => {
 
         await channel.consume(queueName, message => {
             if (message) {
-                console.log(JSON.parse(message.content.toString()));
+                const res = JSON.parse(message.content.toString());
                 channel.ack(message);
 
-                console.log("Consumer received message!")
+                download(res.fileUrl, 'img.png');
+                recognizeText('img.png');
+
+                console.log("Consumer received message!");
             }
         })
     }
