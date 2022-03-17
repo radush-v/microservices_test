@@ -29,6 +29,7 @@ services:
       - ./microservice:/app/microservice/src
     ports:
       - 3001:3001
+      - 443:443
     environment:
       - CONSUMER_PORT=3001
       - CLIENT_PORT=5672

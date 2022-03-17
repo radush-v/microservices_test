@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon",
     "test": "jest",
-    "coverage":"jest --coverage"
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +24,13 @@
   },
   "dependencies": {
     "amqplib": "^0.8.0",
+    "axios": "^0.26.1",
     "express": "^4.17.3",
+    "image-downloader": "^4.1.0",
+    "libgif": "^0.0.3",
+    "libtiffjs": "^0.1.13",
+    "node-image-downloader": "^1.0.7",
+    "node-libpng": "^0.2.20",
     "request": "^2.88.2",
     "tesseract.js": "^2.1.1",
     "ts-jest": "^27.1.3"

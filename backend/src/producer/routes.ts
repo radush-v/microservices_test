@@ -5,10 +5,17 @@ const router = express.Router();
 
 router.post('/send', (req, res) => {
     if (req.body.fileUrl) {
-        sendRabbitMq(req.body);
-        res.sendStatus(200);
+        try {
+            sendRabbitMq(req.body);
+            res.sendStatus(200);
+        }
+        catch {
+            res.sendStatus(500);
+        }
     }
-    res.sendStatus(400);
+    else{
+        res.sendStatus(400);
+    }
 })
 
 export { router };
